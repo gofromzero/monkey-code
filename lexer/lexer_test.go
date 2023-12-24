@@ -30,8 +30,9 @@ if (5 < 10) {
 "foo bar"
 [1, 2];
 {"foo": "bar"}
+macro(x, y) {x + y; };
 `
-
+	// macro(x, y) {x + y; };
 	tests := []struct {
 		expectedType    token.TokenType
 		expectedLiteral string
@@ -122,6 +123,20 @@ if (5 < 10) {
 		{token.COLON, ":"},
 		{token.STRING, "bar"},
 		{token.RBRACE, "}"},
+
+		{token.MACRO, "macro"},
+		{token.LPAREN, "("},
+		{token.IDENT, "x"},
+		{token.COMMA, ","},
+		{token.IDENT, "y"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.IDENT, "x"},
+		{token.PLUS, "+"},
+		{token.IDENT, "y"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACE, "}"},
+		{token.SEMICOLON, ";"},
 		{token.EOF, ""},
 	}
 
